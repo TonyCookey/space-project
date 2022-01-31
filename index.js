@@ -5,6 +5,10 @@ const fs = require('fs')
 const results = []
 
 fs.createReadStream('kepler_data.csv')
+    .pipe(parse({
+        comment: '#',
+        columns: true
+    }))
     .on('data', (data) => {
         results.push(data)
     })
@@ -13,5 +17,5 @@ fs.createReadStream('kepler_data.csv')
     })
     .on('end', () => {
         console.log(results);
-        console.log('Parsing Done');
+        console.log('Done Parsing...');
     })
